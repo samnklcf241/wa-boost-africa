@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle, Users, TrendingUp } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Hero = () => {
+  const { ref: statsRef, isVisible: statsVisible } = useScrollAnimation();
   
   const scrollToForm = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -41,7 +43,8 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-up animation-delay-300">
             <Button
               size="lg"
-              className="bg-gradient-primary hover:shadow-glow transition-all duration-300 text-lg px-8 py-6"
+              onClick={scrollToForm}
+              className="bg-gradient-primary hover:shadow-glow transition-all duration-300 text-lg px-8 py-6 animate-pulse-gentle"
             >
               Créer mon Chatbot WhatsApp
               <ArrowRight className="ml-2" size={20} />
@@ -49,6 +52,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
+              onClick={scrollToForm}
               className="text-lg px-8 py-6 border-2"
             >
               Voir une démo
@@ -56,7 +60,12 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto animate-fade-up animation-delay-400">
+          <div 
+            ref={statsRef as React.RefObject<HTMLDivElement>}
+            className={`grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto transition-all duration-700 ${
+              statsVisible ? 'animate-fade-up opacity-100' : 'opacity-0'
+            }`}
+          >
             <div className="text-center">
               <div className="flex items-center justify-center mb-2">
                 <Users className="text-primary" size={24} />

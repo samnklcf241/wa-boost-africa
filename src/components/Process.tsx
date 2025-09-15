@@ -1,6 +1,8 @@
 import { CheckCircle } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Process = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation();
   
   const steps = [
     {
@@ -36,7 +38,11 @@ const Process = () => {
   ];
 
   return (
-    <section id="process" className="py-20 bg-gradient-hero">
+    <section 
+      ref={sectionRef as React.RefObject<HTMLElement>}
+      id="process" 
+      className="py-20 bg-gradient-hero"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
@@ -56,7 +62,9 @@ const Process = () => {
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="relative group animate-fade-up"
+                className={`relative group transition-all duration-500 ${
+                  isVisible ? 'animate-fade-up opacity-100' : 'opacity-0'
+                }`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="bg-card rounded-2xl p-6 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:scale-105">

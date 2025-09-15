@@ -1,13 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const CTA = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation();
+  
   const scrollToForm = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="py-20 bg-gradient-dark relative overflow-hidden">
+    <section 
+      ref={sectionRef as React.RefObject<HTMLElement>}
+      className={`py-20 bg-gradient-dark relative overflow-hidden transition-all duration-700 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
+    >
       {/* Animated background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl animate-pulse" />
@@ -15,7 +23,9 @@ const CTA = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className={`max-w-4xl mx-auto text-center transition-all duration-700 ${
+          isVisible ? 'animate-scale-in' : ''
+        }`}>
           <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
             <MessageCircle className="text-primary" size={20} />
             <span className="text-primary font-semibold">
@@ -37,7 +47,7 @@ const CTA = () => {
             <Button
               size="lg"
               onClick={scrollToForm}
-              className="bg-primary text-primary-foreground hover:bg-primary-hover hover:shadow-glow transition-all duration-300 text-lg px-8 py-6 animate-pulse-subtle"
+              className="bg-primary text-primary-foreground hover:bg-primary-hover hover:shadow-glow transition-all duration-300 text-lg px-8 py-6 animate-pulse-gentle"
             >
               Rejoindre la Révolution WhatsApp
               <ArrowRight className="ml-2" size={20} />

@@ -19,7 +19,7 @@ const Navbar = () => {
     { href: "#features", label: "Fonctionnalités" },
     { href: "#process", label: "Comment ça marche" },
     { href: "#pricing", label: "Tarifs" },
-    { href: "#contact", label: "Contact" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (

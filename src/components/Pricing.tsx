@@ -1,7 +1,9 @@
 import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Pricing = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation();
   
   const scrollToForm = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -73,7 +75,11 @@ const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-background">
+    <section 
+      ref={sectionRef as React.RefObject<HTMLElement>}
+      id="pricing" 
+      className="py-20 bg-background"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
@@ -92,11 +98,12 @@ const Pricing = () => {
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`relative rounded-2xl p-8 transition-all duration-300 hover:scale-105 ${
+              className={`relative rounded-2xl p-8 transition-all duration-500 hover:scale-105 ${
                 plan.popular
                   ? "bg-gradient-primary text-primary-foreground shadow-glow border-2 border-primary"
                   : "bg-card border border-border hover:border-primary/50"
-              }`}
+              } ${isVisible ? 'animate-fade-up opacity-100' : 'opacity-0'}`}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -168,7 +175,8 @@ const Pricing = () => {
               </ul>
 
               <Button
-                className={`w-full ${
+                onClick={scrollToForm}
+                className={`w-full animate-pulse-gentle ${
                   plan.popular
                     ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                     : "bg-gradient-primary hover:shadow-glow"
@@ -192,8 +200,9 @@ const Pricing = () => {
               Messages illimités, API personnalisée, support premium avec SLA garanti.
             </p>
             <Button
+              onClick={scrollToForm}
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary-hover"
+              className="bg-primary text-primary-foreground hover:bg-primary-hover animate-pulse-gentle"
             >
               Demander un devis personnalisé
             </Button>

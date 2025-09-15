@@ -1,6 +1,10 @@
 import { Bot, ShoppingCart, Calendar, BarChart3, Zap, Globe } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Features = () => {
+  const { ref: sectionRef, isVisible } = useScrollAnimation();
+  const { ref: benefitsRef, isVisible: benefitsVisible } = useScrollAnimation();
+  const { ref: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
   const benefits = [
     {
       icon: <Zap className="w-6 h-6" />,
@@ -66,9 +70,15 @@ const Features = () => {
   return (
     <>
       {/* Why WAxion AI Section */}
-      <section id="features" className="py-20 bg-background">
+      <section 
+        ref={sectionRef as React.RefObject<HTMLElement>}
+        id="features" 
+        className="py-20 bg-background"
+      >
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
+          <div className={`max-w-4xl mx-auto text-center mb-16 transition-all duration-700 ${
+            isVisible ? 'animate-fade-up opacity-100' : 'opacity-0'
+          }`}>
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
               Pourquoi{" "}
               <span className="text-primary">WAxion AI</span>{" "}
@@ -87,11 +97,17 @@ const Features = () => {
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          <div 
+            ref={benefitsRef as React.RefObject<HTMLDivElement>}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
+          >
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="group relative bg-card hover:bg-card/80 rounded-xl p-6 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow"
+                className={`group relative bg-card hover:bg-card/80 rounded-xl p-6 border border-border hover:border-primary/50 transition-all duration-500 hover:shadow-glow ${
+                  benefitsVisible ? 'animate-fade-up opacity-100' : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4 group-hover:bg-primary/20 transition-colors">
                   <div className="text-primary">{benefit.icon}</div>
@@ -116,15 +132,19 @@ const Features = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div 
+            ref={featuresRef as React.RefObject<HTMLDivElement>}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`group relative p-8 rounded-2xl border transition-all duration-300 hover:scale-105 ${
+                className={`group relative p-8 rounded-2xl border transition-all duration-500 hover:scale-105 ${
                   feature.highlight
                     ? "bg-gradient-primary text-primary-foreground border-primary shadow-glow"
                     : "bg-card border-border hover:border-primary/50 hover:shadow-lg"
-                }`}
+                } ${featuresVisible ? 'animate-fade-up opacity-100' : 'opacity-0'}`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div
                   className={`flex items-center justify-center w-16 h-16 rounded-xl mb-6 ${
