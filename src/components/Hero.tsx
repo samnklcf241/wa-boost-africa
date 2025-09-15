@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle, Users, TrendingUp } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Hero = () => {
+  const { ref, isVisible } = useScrollAnimation();
+  
+  const scrollToForm = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden pt-20">
       {/* Animated background elements */}
