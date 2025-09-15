@@ -1,9 +1,7 @@
 import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Pricing = () => {
-  const { ref, isVisible } = useScrollAnimation();
   
   const scrollToForm = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });

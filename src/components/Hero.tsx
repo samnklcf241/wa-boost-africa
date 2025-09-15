@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle, Users, TrendingUp } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Hero = () => {
-  const { ref, isVisible } = useScrollAnimation();
   
   const scrollToForm = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });

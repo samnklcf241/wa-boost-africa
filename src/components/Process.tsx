@@ -1,8 +1,6 @@
 import { CheckCircle } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Process = () => {
-  const { ref, isVisible } = useScrollAnimation();
   
   const steps = [
     {
